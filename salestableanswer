@@ -1,0 +1,63 @@
+/*1.Find total quantity sold by each salesperson.*/
+select Salesperson,sum(Quantity) as total_quantity_sold from Sales group by Salesperson; 
+
+/*2.Find salespersons who sold more than 5 items in total.*/
+select Salesperson from Sales where Quantity>5;
+
+/*3.Find number of products sold by each salesperson.*/
+select Salesperson, count(Product) as total_products from Sales  group by Salesperson;
+
+/*4.List regions where total sale amount exceeded $1000.*/
+select region,sum(SaleAmount) as total_saleamount_by_region from Sales group by region Having sum(SaleAmount) >1000 ;
+
+/*5.Show salespersons who made more than 2 sales transactions.*/
+select Salesperson,count(Salesperson) as transcstion  from Sales group by Salesperson Having count(Salesperson)>2;
+
+/* 6.Find total sale amount by product, and show only products that made over $500 in sales. */
+
+select Product,sum(SaleAmount) as total_sale_amount from Sales group by Product Having sum(SaleAmount)> 500;
+
+/*7.Show the total quantity sold of each product in each region. */
+ 
+ select region,Product,sum(Quantity) from Sales group by region ,Product;
+ 
+ /* 8 .Find salespersons who sold more than 1 type of product. */
+ 
+ select Salesperson , count(Product) as count_products from Sales group by Salesperson  having count(Product)>1  ;
+ 
+ /* 9.Find the average quantity per product sold per region, where the average is greater than 1.*/
+ 
+ select  Product,region,avg(Quantity) from Sales group by  region,Product having avg(Quantity)>1;
+ 
+ /*10.Show salespersons whose total sale amount is between $500 and $1500. */
+ select Salesperson ,sum(SaleAmount) from Sales group by Salesperson Having sum(SaleAmount) between 500 and 1500;
+ 
+/*11.List top-performing products (more than 3 units sold in total).*/
+select Product, count(Product) from Sales group by Product having count(Product)>3;
+
+/* 12.List salespersons who sold laptops.*/
+select Salesperson from Sales where Product in ('Laptop');
+
+/* 13.Find total sale amount per salesperson per region, only where it exceeds $500.  */
+select Salesperson,region,sum(SaleAmount) from Sales group by Salesperson,region Having sum(SaleAmount)>500;
+
+/*14.Find salespersons who sold at least 2 different products in a single region. */
+select Salesperson,region,count(Product) as count_product from Sales group by Salesperson,region Having count(Product)>=2; 
+
+/* 15.Find products that were sold in more than one region.  */
+select product,count(region) as more_one_region from Sales group by product having count(region)>1;
+
+/*16.Show total number of sales per product and hide products with fewer than 2 sales. */
+SELECT Product, COUNT(*) AS TotalSales FROM Sales GROUP BY Product HAVING COUNT(*) >= 2; 
+
+/* 17.Find region-wise total quantity sold by each salesperson. */
+select region, Salesperson ,sum(Quantity) from sales group by region,salesperson;
+
+/*18.Find salespersons who made more than 3 transactions and total sales amount is over $1000. */
+SELECT Salesperson, COUNT(Salesperson) AS transactions_made, SUM(SaleAmount) AS total_amount FROM Sales GROUP BY Salesperson HAVING COUNT(Salesperson) > 3 AND SUM(SaleAmount) > 1000;
+
+/*19.Find average sale amount per region and show only regions with average above $200.*/
+select region,avg(SaleAmount) as avg_region from sales group by region having avg(SaleAmount)>200;
+
+/*20.List regions and products where more than 3 units were sold.*/
+SELECT Region, Product, SUM(Quantity) AS TotalQuantity FROM Sales GROUP BY Region, Product HAVING SUM(Quantity) > 3;
